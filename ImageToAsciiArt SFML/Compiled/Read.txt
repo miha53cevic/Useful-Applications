@@ -1,0 +1,9 @@
+Copyright Mihael Petrièeviæ - 2018
+
+Kako koristiti:
+
+1. Uzeti sliku formata PNG ili JPG
+2. Staviti ju na isto mjesto gdje je .exe file
+3. Ukljuciti .exe i unijeti format slike
+4. Unijeti mjerilo piksela slike sa brojem charachtera, npr. 1:1 = 1 piksel na slici je jedan character na ASCII ART
+5. Otvoriti mjesto gdje se nalazi .exe i moze se vidjeti .txt file
