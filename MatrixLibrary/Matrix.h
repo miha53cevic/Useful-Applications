@@ -60,6 +60,12 @@ namespace Matrix
         // Get a value in the matrix at a specified index
         T at(int rows, int cols)
         {
+            if (rows < 0 || rows >= 3 || cols < 0 || cols >= 3)
+            {
+                std::cout << "Out of matrix bounds!\n";
+                return 0;
+            }
+
             return m_mat[rows][cols];
         }
         
@@ -68,16 +74,16 @@ namespace Matrix
         {
             T result[9];
             result[0] = this->at(0, 0) * mat.at(0, 0) + this->at(0, 1) * mat.at(1, 0) + this->at(0, 2) * mat.at(2, 0);
-            result[1] = this->at(0, 0) * mat.at(0, 1) + this->at(0, 1) * mat.at(1, 1) + this->at(0, 2) * mat.at(2, 1);  
+            result[1] = this->at(0, 0) * mat.at(0, 1) + this->at(0, 1) * mat.at(1, 1) + this->at(0, 2) * mat.at(2, 1);
             result[2] = this->at(0, 0) * mat.at(0, 2) + this->at(0, 1) * mat.at(1, 2) + this->at(0, 2) * mat.at(2, 2);
                                                               
-            result[3] = this->at(1, 0) * mat.at(1, 0) + this->at(1, 1) * mat.at(1, 0) + this->at(1, 2) * mat.at(1, 0);
-            result[4] = this->at(1, 0) * mat.at(1, 1) + this->at(1, 1) * mat.at(1, 1) + this->at(1, 2) * mat.at(1, 1);
-            result[5] = this->at(1, 0) * mat.at(1, 2) + this->at(1, 1) * mat.at(1, 2) + this->at(1, 2) * mat.at(1, 2);
+            result[3] = this->at(1, 0) * mat.at(0, 0) + this->at(1, 1) * mat.at(1, 0) + this->at(1, 2) * mat.at(2, 0);
+            result[4] = this->at(1, 0) * mat.at(0, 1) + this->at(1, 1) * mat.at(1, 1) + this->at(1, 2) * mat.at(2, 1);
+            result[5] = this->at(1, 0) * mat.at(0, 2) + this->at(1, 1) * mat.at(1, 2) + this->at(1, 2) * mat.at(2, 2);
                                                             
-            result[6] = this->at(2, 0) * mat.at(2, 0) + this->at(2, 1) * mat.at(2, 0) + this->at(2, 2) * mat.at(2, 0);
-            result[7] = this->at(2, 0) * mat.at(2, 1) + this->at(2, 1) * mat.at(2, 1) + this->at(2, 2) * mat.at(2, 1);
-            result[8] = this->at(2, 0) * mat.at(2, 2) + this->at(2, 1) * mat.at(2, 2) + this->at(2, 2) * mat.at(2, 2);
+            result[6] = this->at(2, 0) * mat.at(0, 0) + this->at(2, 1) * mat.at(1, 0) + this->at(2, 2) * mat.at(2, 0);
+            result[7] = this->at(2, 0) * mat.at(0, 1) + this->at(2, 1) * mat.at(1, 1) + this->at(2, 2) * mat.at(2, 1);
+            result[8] = this->at(2, 0) * mat.at(0, 2) + this->at(2, 1) * mat.at(1, 2) + this->at(2, 2) * mat.at(2, 2);
             
             return mat3x3<T>(result);
         }
@@ -125,10 +131,22 @@ namespace Matrix
             m_mat[0][0] = mat[0]; m_mat[1][0] = mat[1]; m_mat[2][0] = mat[2];
         }
 
+        // Initialize matrix with paramaters
+        mat3x1(T x, T y, T z)
+        {
+            m_mat[0][0] = x; m_mat[1][0] = y; m_mat[2][0] = z;
+        }
+
         // Initialize matrix with 1D array in function
         void initialize(T mat[])
         {
             m_mat[0][0] = mat[0]; m_mat[1][0] = mat[1]; m_mat[2][0] = mat[2];
+        }
+
+        // Initialize matrix with paramaters
+        void initialize(T x, T y, T z)
+        {
+            m_mat[0][0] = x; m_mat[1][0] = y; m_mat[2][0] = z;
         }
         
         // Print out matrix values
@@ -150,6 +168,12 @@ namespace Matrix
         // Get a value in the matrix at a specified index
         T at(int rows, int cols)
         {
+            if (rows < 0 || rows >= 3 || cols < 0 || cols >= 1)
+            {
+                std::cout << "Out of matrix bounds!\n";
+                return 0;
+            }
+
             return m_mat[rows][cols];
         }
         
@@ -157,9 +181,9 @@ namespace Matrix
         mat3x1<T> mult(mat3x3<T>& mat)
         {
             T result[3];
-            result[0] = this->at(0, 0) * mat.at(0, 0) + this->at(0, 0) * mat.at(1, 0) + this->at(0, 0) * mat.at(2, 0);
-            result[1] = this->at(1, 0) * mat.at(0, 1) + this->at(1, 0) * mat.at(1, 1) + this->at(1, 0) * mat.at(2, 1);
-            result[2] = this->at(2, 0) * mat.at(0, 2) + this->at(2, 0) * mat.at(1, 2) + this->at(2, 0) * mat.at(2, 2);
+            result[0] = this->at(0, 0) * mat.at(0, 0) + this->at(1, 0) * mat.at(0, 1) + this->at(2, 0) * mat.at(0, 2);
+            result[1] = this->at(0, 0) * mat.at(1, 0) + this->at(1, 0) * mat.at(1, 1) + this->at(2, 0) * mat.at(1, 2);
+            result[2] = this->at(0, 0) * mat.at(2, 0) + this->at(1, 0) * mat.at(2, 1) + this->at(2, 0) * mat.at(2, 2);
                                                               
             return mat3x1<T>(result);
         }
